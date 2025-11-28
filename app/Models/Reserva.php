@@ -21,9 +21,11 @@ class Reserva extends Model
     public function pacote(){
         return $this->belongsTo(Pacote::class);
     }
-    public function packages()
-    {
-    return $this->belongsToMany(ImagePackage::class, 'amenity_image_package');//criado o relacionamento muitos-para-muitos usando a tabela pivô
-    //Agora o Laravel sabe que um pacote tem várias comodidades, e uma comodidade pode estar em vários pacotes
+   public function imagePackage() {
+    return $this->belongsTo(ImagePackage::class);
+    }
+    // Helper para pegar imagens direto
+    public function imagens() {
+    return $this->hasOneThrough(Image::class, ImagePackage::class, 'id', 'image_package_id', 'image_package_id', 'id');
     }
 }

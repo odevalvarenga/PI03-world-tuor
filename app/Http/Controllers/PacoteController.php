@@ -1,17 +1,23 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers; // <--- O Namespace TEM que ser esse
 
 use Illuminate\Http\Request;
+use App\Models\Pacote;
 
-class AuthController extends Controller
+class PacoteController extends Controller // <--- O nome TEM que ser PacoteController
 {
-    
-    //Exibe o formulário de cadastro de usuário.
-     
-    public function showRegister()
+    // Método público para listar pacotes
+    public function index()
     {
-        return view('auth.register');
+        $pacotes = Pacote::all();
+        return view('pacotes.pacote', compact('pacotes'));
+    }
+
+    // Método público para ver detalhes
+    public function show($id)
+    {
+        $pacote = Pacote::findOrFail($id);
+        return view('pacote-detalhe', compact('pacote'));
     }
 }
-
